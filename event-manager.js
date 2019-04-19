@@ -12,10 +12,14 @@ const eventManager = (() => {
     if (subscribers[type].indexOf(fn) == -1)
       subscribers[type].push(fn);
 
+    console.log(subscribers[type]);
+
     return {
       unsubscribe: () => {
+        console.log("Before unsubscribe", subscribers[type]);
         const idx = subscribers[type].indexOf(fn);
         subscribers[type].splice(idx, 1);
+        console.log("After unsubscribe", subscribers[type]);
       }
     }
   }
