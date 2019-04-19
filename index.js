@@ -6,9 +6,12 @@ const appDiv = document.getElementById('app');
 appDiv.innerHTML = `<h1>JS Starter</h1>`;
 
 
-const clickEvent1 = events.subscribe('click', (ev) => {
+function x(ev) {
   console.log("[Event 1] New event has been occurred", ev);
-})
+}
+
+
+const clickEvent1 = events.subscribe('click', x);
 
 
 const clickEvent2 = events.subscribe('click', (ev) => {
@@ -16,6 +19,7 @@ const clickEvent2 = events.subscribe('click', (ev) => {
 })
 
 clickEvent2.unsubscribe();
+
 
 
 const clickEvent3 = events.subscribe('click', (ev) => {
