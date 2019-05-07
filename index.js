@@ -6,22 +6,24 @@ const appDiv = document.getElementById('app');
 appDiv.innerHTML = `<h1>Javascript patterns - Observer</h1>`;
 
 
-// clickEvent1.unsubscribe();
-
-
-const clickEvent2 = events.subscribe('click', (ev) => {
-  console.log("[Event 2] New event has been occurred", ev);
+// Hold a reference for the subscription
+let sub1 = events.subscribe("click", (data) => {
+    console.log("Observer 1", data)
+})
+// Hold a reference for the subscription
+let sub2 = events.subscribe("click", (data) => {
+    console.log("Observer 2", data)
 })
 
-// clickEvent2.unsubscribe();
+// Hold a reference for the subscription
 
-const clickEvent3 = events.subscribe('click', (ev) => {
-  console.log("[Event 3] New event has been occurred", ev);
+let sub3 = events.subscribe("click", (data) => {
+    console.log("Observer 3", data)
 })
 
-clickEvent3.unsubscribe();
+// Hold a reference for the subscription
+let sub4 = events.subscribe("click", (data) => {
+    console.log("Observer 4", data)
+}).unsubscribe()
 
-
-
-
-events.publish('click', { message: "Hello Observers" })
+events.publish('click', {black: "swan"})

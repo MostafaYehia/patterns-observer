@@ -1,52 +1,28 @@
-const eventManager = (() => {
-  const subscribers = {};
+export default (() => {
 
-  // console.log("Another module has been loaded successfully");
+  let observers = {};
 
-  const subscribe = (type, fn) => {
-    if (!subscribers[type]) {
-      subscribers[type] = [];
-    }
-
-    // Add with no dublicating
-    if (subscribers[type].indexOf(fn) == -1)
-      subscribers[type].push(fn);
-
-    console.log("Before unsubscribe", subscribers[type]);
-
-
-    return {
-      unsubscribe: () => {
-        const idx = subscribers[type].indexOf(fn);
-        subscribers[type].splice(idx, 1);
-        console.log("After unsubscribe", subscribers[type]);
-      }
-    }
+  function subscribe(type, fn) {
+    if (!observers.hasOwnProperty(type)) observers[type] = [];
+    observers[type].push(fn);
+    return { unsubscribe: this.unsubscribe, type: type, ref: fn }
   }
 
-  const publish = (type, evtObject) => {
+  function unsubscribe() {
+    let idx = observers[this.type].indexOf(this.ref);
+    return observers[this.type].splice(idx,1);
+  }
 
-    if (!subscribers[type])
-      return undefined;
-
-    if (!evtObject.type)
-      evtObject.type = type;
-
-    const listeners = subscribers[type];
-    listeners.forEach((listener) => {
-      if (typeof listener === 'function')
-        listener(evtObject);
-      else
-        console.log("second arg mus be a function")
-    })
+  function publish(type, evtObject) {
+    observers[type].forEach(observer => {
+      observer(evtObject)
+    });
   }
 
 
   return {
     subscribe: subscribe,
+    unsubscribe: unsubscribe,
     publish: publish
   }
-})()
-
-
-export default eventManager
+})();
