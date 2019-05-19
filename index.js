@@ -3,7 +3,7 @@ import './style.css';
 import events from './event-manager';
 // Write Javascript code!
 const appDiv = document.getElementById('app');
-appDiv.innerHTML = `<h1>Javascript patterns - Observer</h1>`;
+appDiv.innerHTML = `<h1>Javascript patterns - PubSub</h1>`;
 
 
 // Hold a reference for the subscription
